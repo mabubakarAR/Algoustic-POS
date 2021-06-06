@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
   Card,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -15,9 +13,9 @@ import {
   Chip
 } from '@material-ui/core';
 import moment from 'moment';
-import SalesSection from '../sale/SalesSection';
+import SalesSection from './SalesSection';
 
-const CustomerListResults = ({ customers, ...rest }) => {
+const SalesListing = ({ customers, ...rest }) => {
   const [selectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -32,7 +30,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   const refresh = () => {
-    window.databaseObj.purchases.find({}).sort({ createdAt: -1 }).exec(function (err, docs) {
+    window.databaseObj.purchases.find({Status: "sold"}).sort({ updatedAt: -1 }).exec(function (err, docs) {
       setPurchases(docs);
     });
   }
@@ -50,31 +48,25 @@ const CustomerListResults = ({ customers, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  Title
+                  Product
                 </TableCell>
                 <TableCell>
-                  From
+                  Sold To
                 </TableCell>
                 <TableCell>
-                  Price
+                  Sold Date
                 </TableCell>
                 <TableCell>
-                  Type
+                  Selling Price
                 </TableCell>
                 <TableCell>
-                  Quantity
-                </TableCell>
-                <TableCell>
-                  Buying Date
+                  Payment type
                 </TableCell>
                 <TableCell>
                   Phone
                 </TableCell>
                 <TableCell>
                   Status
-                </TableCell>
-                <TableCell>
-                  Action
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -101,22 +93,19 @@ const CustomerListResults = ({ customers, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.BuyerFrom}
+                    {customer.SellingTo}
                   </TableCell>
                   <TableCell>
-                    {customer.BuyingPrice + " Rs."}
+                    {moment(customer.SellingDate ? customer.SellingDate : customer.updatedAt).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
-                    {customer.ProductType}
+                    {customer.SellingPrice + " Rs."}
                   </TableCell>
                   <TableCell>
-                    {customer.ProductQuantity}
+                    {customer.PaymentType}
                   </TableCell>
                   <TableCell>
-                    {moment(customer.BuyingDate ? customer.BuyingDate : customer.createdAt).format('DD/MM/YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {customer.BuyingPhone}
+                    {customer.SellingPhone}
                   </TableCell>
                   <TableCell>
                     <Chip
@@ -124,13 +113,6 @@ const CustomerListResults = ({ customers, ...rest }) => {
                       label={customer.Status == "sold" ? "sold" : "pending"}
                       size="small"
                     />
-                  </TableCell> 
-                  <TableCell>
-                    {
-                      customer.Status === "sold" ? <Button variant="contained" size="small" disabled> Sold </Button>
-                      :
-                      <SalesSection id={customer._id} status={"pending"}/>
-                    }
                   </TableCell>
                 </TableRow>
               ))}
@@ -151,4 +133,5 @@ const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-export default CustomerListResults;
+
+export default SalesListing;

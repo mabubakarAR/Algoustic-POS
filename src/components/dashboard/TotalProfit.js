@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   Avatar,
   Card,
@@ -8,7 +9,20 @@ import {
 import { indigo } from '@material-ui/core/colors';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-const TotalProfit = (props) => (
+const TotalProfit = (props) => {
+  const [soldProducts, setPurchases] = useState([]);
+
+  const refresh = () => {
+    window.databaseObj.purchases.find({Status: "sold"}).sort({ createdAt: -1 }).exec(function (err, docs) {
+      setPurchases(docs);
+    });
+  }
+
+  useEffect(() => {
+    console.log('in use effect')
+    refresh();
+  },[]);
+return(
   <Card {...props}>
     <CardContent>
       <Grid
@@ -22,13 +36,13 @@ const TotalProfit = (props) => (
             gutterBottom
             variant="h6"
           >
-            TOTAL PROFIT
+            TOTAL EARNING
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            $23,200
+            Rs {soldProducts.length}
           </Typography>
         </Grid>
         <Grid item>
@@ -45,6 +59,6 @@ const TotalProfit = (props) => (
       </Grid>
     </CardContent>
   </Card>
-);
+)};
 
 export default TotalProfit;

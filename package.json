@@ -1,17 +1,22 @@
 {
-  "name": "react-material-dashboard",
+  "name": "Algoustic-POS",
   "author": "DeviasIO",
   "licence": "MIT",
   "version": "1.0.0",
-  "private": false,
+  "main": "src/electron.js",
+  "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -31,6 +36,7 @@
     "@material-ui/core": "^5.0.0-alpha.28",
     "@material-ui/icons": "^5.0.0-alpha.28",
     "@material-ui/styles": "^4.10.0",
+    "electron-packager": "^15.2.0",
     "chart.js": "^2.9.4",
     "clsx": "^1.1.1",
     "formik": "^2.1.5",
@@ -38,6 +44,7 @@
     "install": "^0.13.0",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
+    "nedb": "^1.8.0",
     "npm": "^7.7.4",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
@@ -54,6 +61,12 @@
     "yup": "^0.29.3"
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^18.2.1"
+    "concurrently": "^6.2.0",
+    "electron": "^13.0.1",
+    "electron-builder": "^22.10.5",
+    "electron-is-dev": "^2.0.0",
+    "wait-on": "^5.3.0",
+    "electron-devtools-installer": "^3.1.1",
+    "electron-react-devtools": "^0.5.3"
   }
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   Avatar,
   Box,
@@ -10,7 +11,20 @@ import {
 import { orange } from '@material-ui/core/colors';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 
-const TasksProgress = (props) => (
+const TasksProgress = (props) => {
+  const [soldProducts, setPurchases] = useState([]);
+
+  const refresh = () => {
+    window.databaseObj.purchases.find({Status: "sold"}).sort({ createdAt: -1 }).exec(function (err, docs) {
+      setPurchases(docs);
+    });
+  }
+
+  useEffect(() => {
+    console.log('in use effect')
+    refresh();
+  },[]);
+return(
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -27,13 +41,13 @@ const TasksProgress = (props) => (
             gutterBottom
             variant="h6"
           >
-            TASKS PROGRESS
+            SOLD PRODUCTS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            75.5%
+            {soldProducts.length}
           </Typography>
         </Grid>
         <Grid item>
@@ -49,13 +63,9 @@ const TasksProgress = (props) => (
         </Grid>
       </Grid>
       <Box sx={{ pt: 3 }}>
-        <LinearProgress
-          value={75.5}
-          variant="determinate"
-        />
       </Box>
     </CardContent>
   </Card>
-);
+)};
 
 export default TasksProgress;

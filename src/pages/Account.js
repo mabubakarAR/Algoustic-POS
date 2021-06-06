@@ -4,13 +4,12 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import AccountProfile from 'src/components/account/AccountProfile';
 import AccountProfileDetails from 'src/components/account/AccountProfileDetails';
 
 const Account = () => (
   <>
     <Helmet>
-      <title>Account | Material Kit</title>
+      <title>POS</title>
     </Helmet>
     <Box
       sx={{
@@ -20,26 +19,8 @@ const Account = () => (
       }}
     >
       <Container maxWidth="lg">
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xs={12}
-          >
-            <AccountProfile />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={6}
-            xs={12}
-          >
-            <AccountProfileDetails />
-          </Grid>
+        <Grid>
+          <AccountProfileDetails />
         </Grid>
       </Container>
     </Box>

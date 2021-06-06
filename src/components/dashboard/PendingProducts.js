@@ -5,17 +5,18 @@ import {
   Card,
   CardContent,
   Grid,
+  LinearProgress,
   Typography
 } from '@material-ui/core';
-import MoneyIcon from '@material-ui/icons/Money';
-import { red } from '@material-ui/core/colors';
+import { orange } from '@material-ui/core/colors';
+import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 
-const Budget = (props) => {
-  const [TotalProducts, setPurchases] = useState([]);
+const PendingProducts = (props) => {
+  const [pendingProducts, setPendingPurchases] = useState([]);
 
   const refresh = () => {
-    window.databaseObj.purchases.find({}).sort({ createdAt: -1 }).exec(function (err, docs) {
-      setPurchases(docs);
+    window.databaseObj.purchases.find({Status: "pending"}).exec(function (err, docs) {
+        setPendingPurchases(docs);
     });
   }
 
@@ -40,37 +41,31 @@ return(
             gutterBottom
             variant="h6"
           >
-            TOTAL PRODUCTS
+            PENDING PRODUCTS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            {TotalProducts.length}
+            {pendingProducts.length}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: red[600],
+              backgroundColor: orange[600],
               height: 56,
               width: 56
             }}
           >
-            <MoneyIcon />
+            <InsertChartIcon />
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
+      <Box sx={{ pt: 3 }}>
       </Box>
     </CardContent>
   </Card>
 )};
 
-export default Budget;
+export default PendingProducts;

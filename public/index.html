@@ -9,6 +9,16 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700" />
   <title>Material Kit</title>
+
+  <script>
+    var remote = require('electron').remote;
+    var databaseObj = remote.getGlobal('databaseObj').myDatabase
+    var ipcRenderer = require('electron').ipcRenderer;     
+    ipcRenderer.send('show-database');
+    const { dialog } = require('electron').remote
+    window.electron = {};
+    window.electron.dialog = dialog;
+  </script>
 </head>
 
 <body>

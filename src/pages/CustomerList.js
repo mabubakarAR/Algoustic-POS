@@ -7,7 +7,7 @@ import customers from 'src/__mocks__/customers';
 const CustomerList = () => (
   <>
     <Helmet>
-      <title>Customers | Material Kit</title>
+      <title>POS</title>
     </Helmet>
     <Box
       sx={{
@@ -19,7 +19,7 @@ const CustomerList = () => (
       <Container maxWidth={false}>
         <CustomerListToolbar />
         <Box sx={{ pt: 3 }}>
-          <CustomerListResults customers={customers} />
+          <CustomerListResults />
         </Box>
       </Container>
     </Box>
