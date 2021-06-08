@@ -48,41 +48,41 @@ const PrintReciept = (props) => {
         />
         <Divider />
         <CardContent ref={componentRef}>
-          <Grid container spacing={2} direction="column" justify="center" alignItems="center" style={{justifyContent: "center"}} mb={3}>
-            <Grid item>
-              <Typography variant={'h4'} style={{align: "center"}}>
-                Minhas Brothers Steel Works
+          <Grid container spacing={2} direction="column" mb={3}>
+            <Grid container xs={12}>
+              <Typography style={{fontSize: "12px"}}>
+                <b>Minhas Brothers Steel Works</b>
               </Typography>
             </Grid>
-            <Grid item>
-              <Grid container direction="row" justify="center" alignItems="center" style={{justifyContent: "center"}} >
+            <Grid container item md={12} xs={12}>
+              <Grid container direction="row" >
                 <Grid item md={12} xs={12}>
-                  <Grid container spacing={5} style={{justifyContent: "center"}} >
+                  <Grid container spacing={5} >
                     <Grid item>
-                      <Typography>Selling Price: </Typography>
+                      <Typography style={{fontSize: "14px"}}>Selling Price: </Typography>
                     </Grid>
                     <Grid item>
-                      <Typography>{props.sellingPrice}</Typography>
+                      <Typography style={{fontSize: "14px"}}>{props.sellingPrice}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item md={12} xs={12}>
-                  <Grid container spacing={5} style={{justifyContent: "center"}}>
+                  <Grid container spacing={3}>
                     <Grid item>
-                      <Typography>Selling To: </Typography>
+                      <Typography style={{fontSize: "14px"}}>Selling To: </Typography>
                     </Grid>
                     <Grid item>
-                    <Typography>{props.to} </Typography>
+                    <Typography style={{fontSize: "14px"}}>{props.to} </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item md={12} xs={12}>
-                  <Grid container spacing={5} style={{justifyContent: "center"}}>
+                  <Grid container spacing={5}>
                     <Grid item>
-                      <Typography>Product: </Typography>
+                      <Typography style={{fontSize: "14px"}}>Product: </Typography>
                     </Grid>
                     <Grid item>
-                    <Typography>{props.product} </Typography>
+                    <Typography style={{fontSize: "14px"}}>{props.product} </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -92,10 +92,10 @@ const PrintReciept = (props) => {
           {/* <Divider /> */}
           <Grid container direction={"column"} mt={3}>
             <Grid item>
-              <Typography>Algoustics POS</Typography>
+              <Typography style={{fontSize: "12px"}}><b>Algoustics POS</b></Typography>
             </Grid>
             <Grid item>
-              <Typography>admin@algoustics.com</Typography>
+              <Typography style={{fontSize: "12px"}}><b>admin@algoustics.com</b></Typography>
             </Grid>
             
           </Grid>
