@@ -69,7 +69,6 @@ const SalesSection = (props) => {
     }).finally(() => {
     });
   };
-  debugger
   return(
     <Box {...props}>
       <Box

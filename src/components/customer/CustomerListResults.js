@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
@@ -16,12 +16,17 @@ import {
 } from '@material-ui/core';
 import moment from 'moment';
 import SalesSection from '../sale/SalesSection';
+import ReactToPrint from 'react-to-print';
+import PrintReciept from '../shared/PrintReciept';
+import PrintMain from '../shared/PrintMain';
 
 const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [purchases, setPurchases] = useState([]);
+  const [open, setOpen] = useState(false);
+  const componentRef = useRef();
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -37,10 +42,22 @@ const CustomerListResults = ({ customers, ...rest }) => {
     });
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     console.log('in use effect')
     refresh();
   },[]);
+
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
 
   return (
     <Card {...rest}>
@@ -75,6 +92,9 @@ const CustomerListResults = ({ customers, ...rest }) => {
                 </TableCell>
                 <TableCell>
                   Action
+                </TableCell>
+                <TableCell>
+                  Print
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -124,13 +144,28 @@ const CustomerListResults = ({ customers, ...rest }) => {
                       label={customer.Status == "sold" ? "sold" : "pending"}
                       size="small"
                     />
-                  </TableCell> 
+                  </TableCell>
+                  
                   <TableCell>
+                    {/* <ReactToPrint 
+                    trigger={()=><Button variant="contained" onClick={handleClickOpen} size="small">Print</Button>}
+                    content={() => componentRef.current}
+                    /> */}
+                    {/* <Button variant="contained" onClick={handleClickOpen} size="small">Print</Button>
+                    <PrintReciept open={open} onClose={handleClose} /> */}
+                    {/* <div style={{ display: "none" }}><PrintReciept open={open} onClose={handleClose} ref={componentRef} sellingPrice={customer.SellingPrice} /></div> */}
+                  {/* <div style={{ display: "none" }}><PrintReciept ref={componentRef} sellingPrice={customer.SellingPrice} /></div>
+                    <Button variant="contained" size="small" onClick={handlePrint}>Print</Button> */}
                     {
                       customer.Status === "sold" ? <Button variant="contained" size="small" disabled> Sold </Button>
                       :
                       <SalesSection id={customer._id} status={"pending"}/>
                     }
+                  </TableCell>
+                  <TableCell>
+                    <PrintMain sellingPrice={customer.SellingPrice} sellingTo={customer.SellingTo} product={customer.Title}/>
+                  {/* <Button variant="contained" onClick={handleClickOpen} size="small">Print</Button>
+                    <PrintReciept open={open} onClose={handleClose} /> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -152,3 +187,27 @@ const CustomerListResults = ({ customers, ...rest }) => {
 };
 
 export default CustomerListResults;
+
+// export class PrintReciept extends React.Component {
+//   render() {
+//     debugger
+//     console.log("props >>>>>>>>>>", this.props)
+//     console.log("props >>> >>>>>>>>>>", this.props.sellingPrice)
+//     return (
+//       <table>
+//         <thead>
+//           <th>column 1</th>
+//           <th>column 2</th>
+//           <th>column 3</th>
+//         </thead>
+//         <tbody>
+//           <tr>
+//             <td>{this.props.sellingPrice}</td>
+//             <td>data 2</td>
+//             <td>data 3</td>
+//           </tr>
+//         </tbody>
+//       </table>
+//     );
+//   }
+// }
